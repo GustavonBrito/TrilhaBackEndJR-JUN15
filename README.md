@@ -50,7 +50,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
     ```
   - **Resposta:**
     ```http 
-      Response: 201
+    Response: 201
     ```
 
 #### Listar Usuários
@@ -109,7 +109,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   - **Autenticação:** O usuário precisa estar logado para fazer essa alteração. O token JWT (JSON Web Token) gerado durante o login deve ser incluído no cabeçalho da requisição.
   - **Cabeçalho de Autenticação:**
     ```http
-     Authorization: Bearer {token}
+    Authorization: Bearer {token}
     ```
   - **Payload:**
     ```json
@@ -188,7 +188,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
 - **Response:**
   ```http
-    Status: 201
+  Status: 201
   ```
 #### Listar Tarefas
 - **Rota:** `GET localhost:8080/tasks`
@@ -199,7 +199,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
 - **Response:**
   ```http
-    Status: 200
+  Status: 200
   ```
   ```json
   [
@@ -247,10 +247,11 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
 - **Cabeçalho de Autenticação:**
   ```http
   Authorization: Bearer {token}
+  ```
 - **Response:**
-    ```http
-    Status: 200
-    ```
+  ```http
+  Status: 200
+  ```
   ```json
    {
    "name": "string",
@@ -321,4 +322,4 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [MIT](LICENSE) para mais detalhes.
