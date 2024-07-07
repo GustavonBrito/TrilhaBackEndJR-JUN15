@@ -300,12 +300,12 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
 ## Clonando o Projeto
 - **Clonando o projeto pra sua máquina**
   ```http
-  git clone https://github.com/GustavonBrito/TrilhaBackEndJR-JUN15.git
-  
+   git clone https://github.com/GustavonBrito/TrilhaBackEndJR-JUN15.git
+  ```
 - **Navegar até o diretório do projeto** 
   ```http
-  cd nome-do-repositorio
-  
+   cd nome-do-repositorio
+  ```
   
 ## Pré requisitos
 
