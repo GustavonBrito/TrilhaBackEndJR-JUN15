@@ -42,6 +42,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteUserById(Long id) {
-
+        this.userRepository.deleteById(id);
     }
 }

@@ -8,5 +8,5 @@ public interface IMethodsToConnectToDB<G> {
     List<G> findAll();
     G findById(Long id);
     G findByEmail (String email);
-    G delete(G entityToDelete);
+    G deleteById(Long id);
 }

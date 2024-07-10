@@ -18,7 +18,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     public UserEntity save(UserEntity userEntity) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        UserEntity userCreated = new UserEntity();
+        UserEntity userToReturn = new UserEntity();
         Long id = null;
         try {
         connection = db.getConnection();
@@ -36,6 +36,10 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                     while (resultSet.next()){
                         id = resultSet.getLong("id");
+                    }
+
+                    if(id == null){
+                        id = 0L;
                     }
 
                     preparedStatement.setLong(1,id + 1);
@@ -56,9 +60,6 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-//        }finally{
-//            db.closeConnection();
-//        }
         return userEntity;
     }
 
@@ -78,7 +79,33 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     }
 
     @Override
-    public UserEntity delete(UserEntity entityToDelete) {
+    public UserEntity deleteById(Long id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        UserEntity userToReturn = new UserEntity();
+        try {
+            connection = db.getConnection();
+            if (connection != null) {
+
+                String userDeletedFromBD = "DELETE FROM user_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(userDeletedFromBD);
+                preparedStatement.setLong(1,id);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("User with ID " + id + " was deleted successfully.");
+                    userToReturn.setId(id);
+                } else {
+                    System.out.println("No user found with ID " + id);
+                }
+            }else {
+                System.out.println("Connection Failed");
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

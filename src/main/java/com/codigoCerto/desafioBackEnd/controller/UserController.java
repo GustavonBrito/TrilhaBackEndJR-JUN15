@@ -5,6 +5,7 @@ import com.codigoCerto.desafioBackEnd.dto.response.UserSignUpResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +31,9 @@ public class UserController {
     };
 //    @PutMapping
 //
-//    @DeleteMapping
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteUserById(@PathVariable Long id){
+        userServiceImpl.deleteUserById(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }
