@@ -25,6 +25,11 @@ public class UserController {
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers();
         return ResponseEntity.ok().body(allUsers);
     }
+    @GetMapping("{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id){
+        return ResponseEntity.ok().body(userServiceImpl.getUserById(id));
+    }
+
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
         return ResponseEntity.created(URI.create("/user")).body(userServiceImpl.createUser(userSignUpRequest));

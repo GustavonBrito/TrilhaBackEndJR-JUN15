@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -64,25 +65,104 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     }
 
     @Override
-    public List findAll() {
-        return List.of();
+    public List<UserEntity> findAll() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        UserEntity userEntity = new UserEntity();
+        List<UserEntity> userList = new ArrayList<>();
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String allUsersFinded = "SELECT * FROM user_entity";
+
+                preparedStatement = connection.prepareStatement(allUsersFinded);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    userEntity = new UserEntity();
+                    userEntity.setName(resultSet.getString("name"));
+                    userEntity.setEmail(resultSet.getString("email"));
+                    userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                    userList.add(userEntity);
+                }
+                System.out.println(userEntity);
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
     public UserEntity findById(Long id) {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        UserEntity userEntity = new UserEntity();
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String userFindedById = "SELECT * FROM user_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(userFindedById);
+                preparedStatement.setLong(1,id);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    userEntity.setName(resultSet.getString("name"));
+                    userEntity.setEmail(resultSet.getString("email"));
+                    userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                }
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return userEntity;
     }
 
     @Override
     public UserEntity findByEmail(String email) {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        UserEntity userEntity = new UserEntity();
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String userFindedByEmail = "SELECT * FROM user_entity WHERE email = ?";
+
+                preparedStatement = connection.prepareStatement(userFindedByEmail);
+                preparedStatement.setString(1,email);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    userEntity.setName(resultSet.getString("name"));
+                    userEntity.setEmail(resultSet.getString("email"));
+                    userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                }
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return userEntity;
     }
 
     @Override
-    public UserEntity deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        UserEntity userToReturn = new UserEntity();
+        Boolean userDeleted = null;
         try {
             connection = db.getConnection();
             if (connection != null) {
@@ -94,10 +174,9 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("User with ID " + id + " was deleted successfully.");
-                    userToReturn.setId(id);
+                    userDeleted = true;
                 } else {
-                    System.out.println("No user found with ID " + id);
+                    userDeleted = false;
                 }
             }else {
                 System.out.println("Connection Failed");
@@ -106,7 +185,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return userDeleted;
     }
 }
 //    public void DBConnection () {

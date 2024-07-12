@@ -27,12 +27,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<UserSignUpResponse> getAllUsers() {
-        return null;
+        List<UserEntity> allUsersFindedByRepo = userRepository.findAll();
+        return allUsersFindedByRepo.stream().map(UserSignUpMapper::transformEntityToResponse).toList();
     }
 
     @Override
     public UserSignUpResponse getUserById(Long id) {
-        return null;
+        UserEntity userReturnedFromRepo = userRepository.findById(id);
+        return UserSignUpMapper.transformEntityToResponse(userReturnedFromRepo);
     }
 
     @Override
