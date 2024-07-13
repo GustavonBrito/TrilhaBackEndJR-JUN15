@@ -1,7 +1,10 @@
 package com.codigoCerto.desafioBackEnd.service.impl;
 
+import com.codigoCerto.desafioBackEnd.dto.mapper.UserEditMapper;
 import com.codigoCerto.desafioBackEnd.dto.mapper.UserSignUpMapper;
+import com.codigoCerto.desafioBackEnd.dto.request.UserEditProfileRequest;
 import com.codigoCerto.desafioBackEnd.dto.request.UserSignUpRequest;
+import com.codigoCerto.desafioBackEnd.dto.response.UserEditProfileResponse;
 import com.codigoCerto.desafioBackEnd.dto.response.UserSignUpResponse;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.repository.impl.UserRepository;
@@ -38,8 +41,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserSignUpResponse updateUserById(Long id, UserSignUpRequest userSignUpRequest) {
-        return null;
+    public UserEditProfileResponse updateUserById(Long id, UserEditProfileRequest userEditProfileRequest) {
+        UserEntity userEntity = UserEditMapper.transformRequestToEntity(userEditProfileRequest);
+        UserEntity userEntityUpdatedFromRepo = userRepository.updateById(id, userEntity);
+        return UserEditMapper.transformEntityToResponse(userEntityUpdatedFromRepo);
     }
 
     @Override

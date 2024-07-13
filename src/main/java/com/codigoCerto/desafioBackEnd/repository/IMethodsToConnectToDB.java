@@ -1,5 +1,7 @@
 package com.codigoCerto.desafioBackEnd.repository;
 
+import com.codigoCerto.desafioBackEnd.entity.UserEntity;
+
 import java.util.List;
 
 public interface IMethodsToConnectToDB<G> {
@@ -8,5 +10,6 @@ public interface IMethodsToConnectToDB<G> {
     List<G> findAll();
     G findById(Long id);
     G findByEmail (String email);
+    G updateById (Long id, UserEntity userEntity);
     Boolean deleteById(Long id);
 }

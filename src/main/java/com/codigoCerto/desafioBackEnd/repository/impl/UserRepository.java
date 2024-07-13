@@ -3,6 +3,7 @@ package com.codigoCerto.desafioBackEnd.repository.impl;
 import com.codigoCerto.desafioBackEnd.configuration.SqLiteConnection;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.repository.IMethodsToConnectToDB;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -81,6 +82,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 while(resultSet.next()){
                     userEntity = new UserEntity();
+                    userEntity.setId(resultSet.getLong("id"));
                     userEntity.setName(resultSet.getString("name"));
                     userEntity.setEmail(resultSet.getString("email"));
                     userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
@@ -113,6 +115,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
+                    userEntity.setId(resultSet.getLong("id"));
                     userEntity.setName(resultSet.getString("name"));
                     userEntity.setEmail(resultSet.getString("email"));
                     userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
@@ -143,16 +146,45 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
-                    userEntity.setName(resultSet.getString("name"));
                     userEntity.setEmail(resultSet.getString("email"));
-                    userEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
-                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
                 }
             }else{
                 System.out.println("Connection Failed!");
             }
         }
         catch (SQLException e){
+            e.printStackTrace();
+        }
+        return userEntity;
+    }
+
+    @Override
+    public UserEntity updateById(Long id, UserEntity userEntity){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = db.getConnection();
+            if (connection != null) {
+                String userUpdatedById = "UPDATE user_entity SET name = ?, email = ?, updatedAt = ? WHERE id = ?";
+                preparedStatement = connection.prepareStatement(userUpdatedById);
+
+                preparedStatement.setString(1,userEntity.getName());
+                preparedStatement.setString(2, userEntity.getEmail());
+                preparedStatement.setTimestamp(3, Timestamp.from(Instant.now()));
+                preparedStatement.setLong(4,id);
+
+                preparedStatement.executeUpdate();
+
+//                while(resultSet.next()){
+//                    userEntity.setName(resultSet.getString("name"));
+//                    userEntity.setEmail(resultSet.getString("email"));
+//                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+//                }
+            }else{
+                System.out.println("Connection failed");
+            }
+        }
+        catch(SQLException e){
             e.printStackTrace();
         }
         return userEntity;

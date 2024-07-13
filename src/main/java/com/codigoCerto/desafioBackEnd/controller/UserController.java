@@ -1,10 +1,13 @@
 package com.codigoCerto.desafioBackEnd.controller;
 
+import com.codigoCerto.desafioBackEnd.dto.request.UserEditProfileRequest;
 import com.codigoCerto.desafioBackEnd.dto.request.UserSignUpRequest;
+import com.codigoCerto.desafioBackEnd.dto.response.UserEditProfileResponse;
 import com.codigoCerto.desafioBackEnd.dto.response.UserSignUpResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +37,13 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
         return ResponseEntity.created(URI.create("/user")).body(userServiceImpl.createUser(userSignUpRequest));
     };
-//    @PutMapping
-//
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody @Valid UserEditProfileRequest userEditProfileRequest){
+        UserEditProfileResponse userEditProfileResponse = userServiceImpl.updateUserById(id, userEditProfileRequest);
+        return ResponseEntity.ok().body(userEditProfileResponse);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id){
         userServiceImpl.deleteUserById(id);

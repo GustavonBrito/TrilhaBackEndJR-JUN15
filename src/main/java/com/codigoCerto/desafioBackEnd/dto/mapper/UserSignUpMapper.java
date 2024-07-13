@@ -18,8 +18,11 @@ public class UserSignUpMapper {
 
     public static UserSignUpResponse transformEntityToResponse(UserEntity userEntity){
         return UserSignUpResponse.builder()
+                .id(userEntity.getId())
                 .email(userEntity.getEmail())
                 .name(userEntity.getName())
+                .createdAt(userEntity.getCreatedAt())
+                .updatedAt(userEntity.getUpdatedAt())
                 .build();
     }
 }
