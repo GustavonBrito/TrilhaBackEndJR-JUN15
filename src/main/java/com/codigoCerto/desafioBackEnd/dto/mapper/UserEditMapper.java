@@ -12,13 +12,15 @@ public class UserEditMapper {
                 .name(userEditProfileRequest.name())
                 .email(userEditProfileRequest.email())
                 .build();
-    };
+    }
 
     public static UserEditProfileResponse transformEntityToResponse(UserEntity userEntity){
         return UserEditProfileResponse.builder()
                 .id(userEntity.getId())
                 .name(userEntity.getName())
                 .email(userEntity.getEmail())
+                .createdAt(userEntity.getCreatedAt())
+                .updatedAt(userEntity.getUpdatedAt())
                 .build();
     }
 }

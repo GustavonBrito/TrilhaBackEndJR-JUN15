@@ -11,7 +11,7 @@ public record UserSignUpRequest(
         @Size(min = 2, max = 40, message = "O nome deve ter no minimo dois caracteres e no máximo 40")
         String name,
         @NotBlank
-        @Email
+        @Email(message = "O endereço de email deve ser valido")
         String email,
         @NotBlank
         @Pattern(regexp = Regex.PASSWORD,

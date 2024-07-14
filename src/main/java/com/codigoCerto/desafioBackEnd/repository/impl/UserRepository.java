@@ -3,7 +3,6 @@ package com.codigoCerto.desafioBackEnd.repository.impl;
 import com.codigoCerto.desafioBackEnd.configuration.SqLiteConnection;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.repository.IMethodsToConnectToDB;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -17,9 +16,9 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     SqLiteConnection db = new SqLiteConnection();
 
     @Override
-    public UserEntity save(UserEntity userEntity) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    public UserEntity save (UserEntity userEntity){
+        Connection connection;
+        PreparedStatement preparedStatement;
         UserEntity userToReturn = new UserEntity();
         Long id = null;
         try {
@@ -54,7 +53,22 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     preparedStatement.setTimestamp(6, createdAtTimestamp);
                     preparedStatement.setTimestamp(7, updatedAtTimestamp);
                     preparedStatement.executeUpdate();
-                    return userEntity;
+
+                String queryToFindUserCreated = "SELECT * FROM user_entity WHERE id = ?";
+
+                PreparedStatement statementToFindUserCreated = connection.prepareStatement(queryToFindUserCreated);
+
+                statementToFindUserCreated.setLong(1,id + 1);
+
+                ResultSet userFinded = statementToFindUserCreated.executeQuery();
+
+                while(userFinded.next()){
+                    userToReturn.setId(userFinded.getLong("id"));
+                    userToReturn.setName(userFinded.getString("name"));
+                    userToReturn.setEmail(userFinded.getString("email"));
+                    userToReturn.setCreatedAt(userFinded.getTimestamp("createdAt"));
+                    userToReturn.setUpdatedAt(userFinded.getTimestamp("updatedAt"));
+                }
             }else {
                 System.out.println("Connection Failed");
             }
@@ -62,13 +76,13 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return userEntity;
+        return userToReturn;
     }
 
     @Override
     public List<UserEntity> findAll() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
         UserEntity userEntity = new UserEntity();
         List<UserEntity> userList = new ArrayList<>();
         try {
@@ -102,8 +116,8 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
     @Override
     public UserEntity findById(Long id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
         UserEntity userEntity = new UserEntity();
         try {
             connection = db.getConnection();
@@ -133,8 +147,8 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
     @Override
     public UserEntity findByEmail(String email) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
         UserEntity userEntity = new UserEntity();
         try {
             connection = db.getConnection();
@@ -160,8 +174,9 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
     @Override
     public UserEntity updateById(Long id, UserEntity userEntity){
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
+        UserEntity userUpdatedToReturn = new UserEntity();
         try {
             connection = db.getConnection();
             if (connection != null) {
@@ -175,11 +190,21 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 preparedStatement.executeUpdate();
 
-//                while(resultSet.next()){
-//                    userEntity.setName(resultSet.getString("name"));
-//                    userEntity.setEmail(resultSet.getString("email"));
-//                    userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
-//                }
+                String userUpdated = "SELECT * FROM user_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(userUpdated);
+
+                preparedStatement.setLong(1,id);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    userUpdatedToReturn.setId(resultSet.getLong("id"));
+                    userUpdatedToReturn.setName(resultSet.getString("name"));
+                    userUpdatedToReturn.setEmail(resultSet.getString("email"));
+                    userUpdatedToReturn.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                    userUpdatedToReturn.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                }
             }else{
                 System.out.println("Connection failed");
             }
@@ -187,14 +212,13 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch(SQLException e){
             e.printStackTrace();
         }
-        return userEntity;
+        return userUpdatedToReturn;
     }
 
     @Override
-    public Boolean deleteById(Long id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        Boolean userDeleted = null;
+    public void deleteById(Long id) {
+        Connection connection;
+        PreparedStatement preparedStatement;
         try {
             connection = db.getConnection();
             if (connection != null) {
@@ -203,13 +227,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 preparedStatement = connection.prepareStatement(userDeletedFromBD);
                 preparedStatement.setLong(1,id);
-
-                int rowsAffected = preparedStatement.executeUpdate();
-                if (rowsAffected > 0) {
-                    userDeleted = true;
-                } else {
-                    userDeleted = false;
-                }
+                preparedStatement.executeUpdate();
             }else {
                 System.out.println("Connection Failed");
             }
@@ -217,89 +235,5 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return userDeleted;
     }
 }
-//    public void DBConnection () {
-//        if (connection != null) {
-//
-//            try {
-//
-//                Statement statement = connection.createStatement();
-//
-//                String createTable="CREATE TABLE IF NOT EXISTS user-entity (id INTEGER PRIMARY KEY, name TEXT)";
-//
-//                // Create table if not exists
-//
-////                Operation:C
-//
-//                statement.executeUpdate(createTable);
-//
-//
-//                // Insert data
-//
-//                statement.executeUpdate("INSERT INTO students (name) VALUES (‘John’)");
-//
-//                System.out.println("Data Inserted");
-//
-//
-//                // Display data
-//
-//                ResultSet resultSet = statement.executeQuery("SELECT * FROM students");
-//
-//
-////                Operation:U
-//
-//                // Update data
-//
-////                statement.executeUpdate("UPDATE students SET name = ‘Johnny’ WHERE id = 1");
-//
-////                System.out.println(“Data Updated”);
-//
-//                // Display updated data
-//
-////                resultSet = statement.executeQuery(“SELECT * FROM students”);
-//
-////                System.out.println(“ID\tName”);
-////
-////                while (resultSet.next()) {
-////
-////                    int id = resultSet.getInt(“id”);
-////
-////                    String name = resultSet.getString(“name”);
-////
-////                    System.out.println(id + “\t“ + name);
-////
-////                }
-//
-//
-////                Operation:D
-//
-////                 Delete data
-//
-//                statement.executeUpdate("DELETE FROM students WHERE id = 2");
-//
-//
-//                // Close resources
-//
-//                resultSet.close();
-//
-//                statement.close();
-//
-//            } catch (SQLException e) {
-//
-//                e.printStackTrace();
-//
-//            } finally {
-//
-//                db.closeConnection();
-//
-//            }
-//
-//        } else {
-//
-//            System.out.println("Connection failed");
-//
-//        }
-
-

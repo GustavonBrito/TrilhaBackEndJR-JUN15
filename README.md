@@ -24,10 +24,11 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
 ### Usuarios
 
 #### Criar Usuário
-  - **Rota:** `POST localhost:8080/usersSignUp`
+  - **Rota:** `POST localhost:8080/users/signUp`
   - **Payload:**
     ```json
     {
+      "id": 1,
       "name": "string",
       "email": "string",
       "password": "string",
@@ -40,10 +41,11 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
     ```
 
 #### Logar Usuário
-  - **Rota:** `POST localhost:8080/usersSignIn`
+  - **Rota:** `POST localhost:8080/users/signIn`
   - **Payload:**
     ```json
     {
+      "id": 1,
       "email": "string",
       "password": "string"
     }
@@ -114,6 +116,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   - **Payload:**
     ```json
     {
+     "id": 1,
      "name": "string",
      "email": "string",
      "password": "string",
@@ -128,6 +131,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
     ```
     ```json
     {
+    "id": 1,
     "name": "string",
     "email": "string",
     "createdAt": "2023-01-01T12:00:00Z",
@@ -151,6 +155,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
     ```
     ```json
       {
+      "id": 1,
       "name": "string",
       "email": "string",
       "createdAt": "2023-01-01T12:00:00Z",
@@ -179,6 +184,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
   ```json
    {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",
@@ -204,6 +210,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```json
   [
    {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",
@@ -211,6 +218,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
    "updatedAt": "2023-01-02T12:00:00Z"
    },
    {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",
@@ -233,6 +241,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
   ```json
    {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",
@@ -254,6 +263,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
   ```json
    {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",
@@ -279,6 +289,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
   ```
   ```json  
   {
+   "id": 1,
    "name": "string",
    "description": "string",
    "status": "string",

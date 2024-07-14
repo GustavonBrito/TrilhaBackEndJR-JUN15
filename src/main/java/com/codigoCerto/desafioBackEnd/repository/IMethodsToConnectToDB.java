@@ -11,5 +11,5 @@ public interface IMethodsToConnectToDB<G> {
     G findById(Long id);
     G findByEmail (String email);
     G updateById (Long id, UserEntity userEntity);
-    Boolean deleteById(Long id);
+    void deleteById(Long id);
 }

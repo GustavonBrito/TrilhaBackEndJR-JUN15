@@ -7,7 +7,6 @@ import com.codigoCerto.desafioBackEnd.dto.response.UserSignUpResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import java.util.List;
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
@@ -28,15 +27,16 @@ public class UserController {
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers();
         return ResponseEntity.ok().body(allUsers);
     }
+
     @GetMapping("{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         return ResponseEntity.ok().body(userServiceImpl.getUserById(id));
     }
 
-    @PostMapping
+    @PostMapping("/signUp")
     public ResponseEntity<?> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
         return ResponseEntity.created(URI.create("/user")).body(userServiceImpl.createUser(userSignUpRequest));
-    };
+    }
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody @Valid UserEditProfileRequest userEditProfileRequest){
