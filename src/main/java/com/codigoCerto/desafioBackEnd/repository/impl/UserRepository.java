@@ -145,7 +145,6 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         return userEntity;
     }
 
-    @Override
     public UserEntity findByEmail(String email) {
         Connection connection;
         PreparedStatement preparedStatement;

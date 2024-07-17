@@ -39,6 +39,15 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
     ```http 
     Response: 201
     ```
+    ```json
+    {
+      "id": 1,
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "confirmedPassword": "string"
+    }
+    ```
 
 #### Logar Usuário
   - **Rota:** `POST localhost:8080/users/signIn`
@@ -120,9 +129,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
      "name": "string",
      "email": "string",
      "password": "string",
-     "confirmedPassword": "string",
-     "createdAt": "2023-01-01T12:00:00Z",
-     "updatedAt": "2023-01-02T12:00:00Z"
+     "confirmedPassword": "string"
     }
     ```
   - **Response:**
@@ -158,7 +165,7 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
       "id": 1,
       "name": "string",
       "email": "string",
-      "createdAt": "2023-01-01T12:00:00Z",
+      "createdAt":"2023-01-01T12:00:00Z",
       "updatedAt": "2023-01-02T12:00:00Z"
       }
     ```
@@ -187,14 +194,22 @@ Este projeto tem como objetivo desenvolver uma API RESTful para gerenciamento de
    "id": 1,
    "name": "string",
    "description": "string",
-   "status": "string",
-   "createdAt": "2023-01-01T12:00:00Z",
-   "updatedAt": "2023-01-02T12:00:00Z"
+   "status": "string"
    }
   ```
 - **Response:**
   ```http
   Status: 201
+  ```
+    ```json
+   {
+   "id": 1,
+   "name": "string",
+   "description": "string",
+   "status": "string",
+   "createdAt": "2023-01-01T12:00:00Z",
+   "updatedAt": "2023-01-02T12:00:00Z"
+   }
   ```
 #### Listar Tarefas
 - **Rota:** `GET localhost:8080/tasks`
