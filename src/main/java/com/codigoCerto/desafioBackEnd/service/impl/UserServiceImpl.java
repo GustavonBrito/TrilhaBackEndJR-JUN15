@@ -41,8 +41,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<UserSignUpResponse> getAllUsers() {
-        List<UserEntity> allUsersFindedByRepo = userRepository.findAll();
-        return allUsersFindedByRepo.stream().map(UserSignUpMapper::transformEntityToResponse).toList();
+        List<UserEntity> allUsersFoundByRepo = userRepository.findAll();
+        return allUsersFoundByRepo.stream().map(UserSignUpMapper::transformEntityToResponse).toList();
     }
 
     @Override

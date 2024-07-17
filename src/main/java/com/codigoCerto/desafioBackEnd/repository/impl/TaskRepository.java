@@ -2,6 +2,7 @@ package com.codigoCerto.desafioBackEnd.repository.impl;
 
 import com.codigoCerto.desafioBackEnd.configuration.SqLiteConnection;
 import com.codigoCerto.desafioBackEnd.entity.TaskEntity;
+import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.enums.Status;
 import com.codigoCerto.desafioBackEnd.repository.IMethodsToConnectToDB;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -81,22 +83,136 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
     }
 
     @Override
-    public List findAll() {
-        return List.of();
+    public List<TaskEntity> findAll() {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        TaskEntity taskEntity;
+        List<TaskEntity> taskList = new ArrayList<>();
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String allTasksFinded = "SELECT * FROM task_entity";
+
+                preparedStatement = connection.prepareStatement(allTasksFinded);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    taskEntity = new TaskEntity();
+                    taskEntity.setId(resultSet.getLong("id"));
+                    taskEntity.setName(resultSet.getString("name"));
+                    taskEntity.setDescription(resultSet.getString("description"));
+                    taskEntity.setStatus(Status.valueOf(resultSet.getString("status")));
+                    taskEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                    taskEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                    taskList.add(taskEntity);
+                }
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return taskList;
     }
 
     @Override
     public TaskEntity findById(Long id) {
-        return null;
+        Connection connection;
+        PreparedStatement preparedStatement;
+        TaskEntity taskEntity = new TaskEntity();
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String taskFoundById = "SELECT * FROM task_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(taskFoundById);
+                preparedStatement.setLong(1,id);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    taskEntity.setId(resultSet.getLong("id"));
+                    taskEntity.setName(resultSet.getString("name"));
+                    taskEntity.setDescription(resultSet.getString("description"));
+                    taskEntity.setStatus(Status.valueOf(resultSet.getString("status")));
+                    taskEntity.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                    taskEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                }
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return taskEntity;
     }
 
     @Override
     public TaskEntity updateById(Long id, TaskEntity taskEntity) {
-        return null;
+        Connection connection;
+        PreparedStatement preparedStatement;
+        TaskEntity taskUpdatedToReturn = new TaskEntity();
+        try {
+            connection = db.getConnection();
+            if (connection != null) {
+                String taskUpdatedById = "UPDATE task_entity SET name = ?, description = ?, status = ? ,updatedAt = ? WHERE id = ?";
+                preparedStatement = connection.prepareStatement(taskUpdatedById);
+
+                preparedStatement.setString(1,taskEntity.getName());
+                preparedStatement.setString(2, taskEntity.getDescription());
+                preparedStatement.setString(3, String.valueOf(taskEntity.getStatus()));
+                preparedStatement.setTimestamp(4, Timestamp.from(Instant.now()));
+                preparedStatement.setLong(5,id);
+
+                preparedStatement.executeUpdate();
+
+                String taskUpdated = "SELECT * FROM task_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(taskUpdated);
+
+                preparedStatement.setLong(1,id);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    taskUpdatedToReturn.setId(resultSet.getLong("id"));
+                    taskUpdatedToReturn.setName(resultSet.getString("name"));
+                    taskUpdatedToReturn.setDescription(resultSet.getString("description"));
+                    taskUpdatedToReturn.setStatus(Status.valueOf(resultSet.getString("status")));
+                    taskUpdatedToReturn.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
+                    taskUpdatedToReturn.setCreatedAt(resultSet.getTimestamp("createdAt"));
+                }
+            }else{
+                System.out.println("Connection failed");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return taskUpdatedToReturn;
     }
 
     @Override
     public void deleteById(Long id) {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        try {
+            connection = db.getConnection();
+            if (connection != null) {
 
+                String taskDeletedFromBD = "DELETE FROM task_entity WHERE id = ?";
+
+                preparedStatement = connection.prepareStatement(taskDeletedFromBD);
+                preparedStatement.setLong(1,id);
+                preparedStatement.executeUpdate();
+            }else {
+                System.out.println("Connection Failed");
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

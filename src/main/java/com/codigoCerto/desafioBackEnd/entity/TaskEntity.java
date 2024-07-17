@@ -24,4 +24,5 @@ public class TaskEntity {
     Timestamp createdAt;
 
     Timestamp updatedAt;
+
 }

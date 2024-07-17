@@ -5,10 +5,12 @@ import com.codigoCerto.desafioBackEnd.dto.response.TaskResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.TaskServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 @RestController
@@ -20,12 +22,12 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<?> getAllTasks(){
-        return null;
+        return ResponseEntity.ok().body(this.taskService.getAllTasks());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getTaskById(@Valid @PathVariable Long id){
-        return null;
+    public ResponseEntity<?> getTaskById(@PathVariable Long id){
+        return ResponseEntity.ok().body(this.taskService.getTaskById(id));
     }
 
     @PostMapping
@@ -35,12 +37,13 @@ public class TaskController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest requestBody){
-        return null;
+    public ResponseEntity<?> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
+        return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTaskById(@PathVariable Long id){
-        return null;
+        this.taskService.deleteTaskById(id);
+        return ResponseEntity.noContent().build();
     }
 }

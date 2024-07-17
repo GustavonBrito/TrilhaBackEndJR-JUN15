@@ -9,7 +9,6 @@ public interface ITaskService {
     TaskResponse createTask(TaskRequest tasksRequest);
     List<TaskResponse> getAllTasks();
     TaskResponse getTaskById(Long id);
-    TaskResponse updateTaskById(Long id);
+    TaskResponse updateTaskById(Long id, TaskRequest taskRequest);
     void deleteTaskById(Long id);
-
 }

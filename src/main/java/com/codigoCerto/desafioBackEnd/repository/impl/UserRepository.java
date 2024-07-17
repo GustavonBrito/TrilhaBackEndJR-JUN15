@@ -83,7 +83,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     public List<UserEntity> findAll() {
         Connection connection;
         PreparedStatement preparedStatement;
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity;
         List<UserEntity> userList = new ArrayList<>();
         try {
             connection = db.getConnection();
@@ -103,7 +103,6 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
                     userList.add(userEntity);
                 }
-                System.out.println(userEntity);
             }else{
                 System.out.println("Connection Failed!");
             }

@@ -17,6 +17,7 @@ public class TaskMapper {
 
     public static TaskResponse transformEntityToResponse (TaskEntity taskEntity){
         return TaskResponse.builder()
+                .id(taskEntity.getId())
                 .name(taskEntity.getName())
                 .description(taskEntity.getDescription())
                 .status(taskEntity.getStatus())
