@@ -14,6 +14,7 @@ import com.codigoCerto.desafioBackEnd.repository.impl.UserRepository;
 import com.codigoCerto.desafioBackEnd.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,8 @@ public class UserServiceImpl implements IUserService {
             throw new IsPasswordEquals("Senhas não iguais");
         }
         UserEntity userTransformedToEntity = UserSignUpMapper.transformRequestToEntity(userSignUpRequest);
+        userTransformedToEntity.setPassword(new BCryptPasswordEncoder().encode(userTransformedToEntity.getPassword()));
+        userTransformedToEntity.setConfirmedPassword(new BCryptPasswordEncoder().encode(userTransformedToEntity.getConfirmedPassword()));
         UserEntity savedUserInRepo = this.userRepository.save(userTransformedToEntity);
         return UserSignUpMapper.transformEntityToResponse(savedUserInRepo);
     }

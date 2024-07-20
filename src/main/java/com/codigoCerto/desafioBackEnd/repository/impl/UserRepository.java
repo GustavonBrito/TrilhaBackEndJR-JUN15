@@ -3,11 +3,15 @@ package com.codigoCerto.desafioBackEnd.repository.impl;
 import com.codigoCerto.desafioBackEnd.configuration.SqLiteConnection;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.repository.IMethodsToConnectToDB;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -48,8 +52,8 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     preparedStatement.setString(3, userEntity.getEmail());
                     preparedStatement.setString(4, userEntity.getPassword());
                     preparedStatement.setString(5, userEntity.getConfirmedPassword());
-                    Timestamp createdAtTimestamp = Timestamp.from(Instant.now());
-                    Timestamp updatedAtTimestamp = Timestamp.from(Instant.now());
+                    Timestamp createdAtTimestamp = Timestamp.from(Instant.now().atOffset(ZoneOffset.of("-03:00")).toInstant());
+                    Timestamp updatedAtTimestamp = Timestamp.from(Instant.now().atOffset(ZoneOffset.of("-03:00")).toInstant());
                     preparedStatement.setTimestamp(6, createdAtTimestamp);
                     preparedStatement.setTimestamp(7, updatedAtTimestamp);
                     preparedStatement.executeUpdate();
@@ -144,6 +148,50 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         return userEntity;
     }
 
+    public UserDetails findByEmailToGetCredentials(String email){
+        Connection connection;
+        PreparedStatement preparedStatement;
+        UserEntity userEntity = new UserEntity();
+        UserDetails userSubscribed = new UserDetails() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return List.of();
+            }
+
+            @Override
+            public String getPassword() {
+                return userEntity.getPassword();
+            }
+
+            @Override
+            public String getUsername() {
+                return "";
+            }
+        };
+        try {
+            connection = db.getConnection();
+            if (connection != null){
+                String userFindedByEmail = "SELECT * FROM user_entity WHERE email = ?";
+
+                preparedStatement = connection.prepareStatement(userFindedByEmail);
+                preparedStatement.setString(1,email);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    userEntity.setId(resultSet.getLong("id"));
+                    userEntity.setEmail(resultSet.getString("email"));
+                    userEntity.setPassword(resultSet.getString("password"));
+                }
+            }else{
+                System.out.println("Connection Failed!");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return userSubscribed;
+    }
+
     public UserEntity findByEmail(String email) {
         Connection connection;
         PreparedStatement preparedStatement;
@@ -158,6 +206,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
+                    userEntity.setId(resultSet.getLong("id"));
                     userEntity.setEmail(resultSet.getString("email"));
                 }
             }else{
