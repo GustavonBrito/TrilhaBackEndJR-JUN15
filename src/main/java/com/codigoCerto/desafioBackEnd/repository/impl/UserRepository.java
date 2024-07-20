@@ -29,10 +29,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         connection = db.getConnection();
             if (connection != null) {
 
-                    String createTableUser = "CREATE TABLE IF NOT EXISTS user_entity (id LONG PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, confirmedPassword VARCHAR(100) NOT NULL, createdAt DATETIME, updatedAt DATETIME)";
-
                     Statement statement = connection.createStatement();
-                    statement.executeUpdate(createTableUser);
 
                     String insertUser = "INSERT INTO user_entity (id ,name, email, password, confirmedPassword, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     preparedStatement = connection.prepareStatement(insertUser);

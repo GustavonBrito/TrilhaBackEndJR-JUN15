@@ -28,10 +28,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
             connection = db.getConnection();
             if (connection != null) {
 
-                String createTableTask = "CREATE TABLE IF NOT EXISTS task_entity (id LONG PRIMARY KEY, name VARCHAR(100) NOT NULL,description VARCHAR(100) NOT NULL,status VARCHAR(100) NOT NULL, createdAt DATETIME, updatedAt DATETIME)";
-
                 Statement statement = connection.createStatement();
-                statement.executeUpdate(createTableTask);
 
                 String insertTask = "INSERT INTO task_entity (id ,name, description, status, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)";
                 preparedStatement = connection.prepareStatement(insertTask);
