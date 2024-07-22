@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS task_user(
     id BIGINT PRIMARY KEY,
     taskId BIGINT,
     userId BIGINT,
+    createdAt DATETIME,
+    updatedAt DATETIME,
     CONSTRAINT fkTask FOREIGN KEY (taskId) REFERENCES task_entity(id),
     CONSTRAINT fkUser FOREIGN KEY (userId) REFERENCES user_entity(id)
 );
