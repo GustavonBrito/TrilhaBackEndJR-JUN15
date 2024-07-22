@@ -3,7 +3,6 @@ package com.codigoCerto.desafioBackEnd.repository.impl;
 import com.codigoCerto.desafioBackEnd.configuration.SqLiteConnection;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.repository.IMethodsToConnectToDB;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +10,6 @@ import java.sql.*;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -149,33 +147,16 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         Connection connection;
         PreparedStatement preparedStatement;
         UserEntity userEntity = new UserEntity();
-        UserDetails userSubscribed = new UserDetails() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return List.of();
-            }
-
-            @Override
-            public String getPassword() {
-                return userEntity.getPassword();
-            }
-
-            @Override
-            public String getUsername() {
-                return "";
-            }
-        };
         try {
             connection = db.getConnection();
             if (connection != null){
-                String userFindedByEmail = "SELECT * FROM user_entity WHERE email = ?";
+                String userFoundByEmail = "SELECT * FROM user_entity WHERE email = ?";
 
-                preparedStatement = connection.prepareStatement(userFindedByEmail);
+                preparedStatement = connection.prepareStatement(userFoundByEmail);
                 preparedStatement.setString(1,email);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
-                    userEntity.setId(resultSet.getLong("id"));
                     userEntity.setEmail(resultSet.getString("email"));
                     userEntity.setPassword(resultSet.getString("password"));
                 }
@@ -186,7 +167,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         catch (SQLException e){
             e.printStackTrace();
         }
-        return userSubscribed;
+        return userEntity;
     }
 
     public UserEntity findByEmail(String email) {

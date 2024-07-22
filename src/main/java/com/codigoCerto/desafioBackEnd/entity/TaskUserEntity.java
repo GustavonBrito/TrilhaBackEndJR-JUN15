@@ -1,6 +1,5 @@
 package com.codigoCerto.desafioBackEnd.entity;
 
-import com.codigoCerto.desafioBackEnd.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,17 +8,15 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Builder
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TaskEntity {
+@NoArgsConstructor
+@Data
+public class TaskUserEntity {
     private Long id;
 
-    private String name;
+    private Long taskId;
 
-    private String description;
-
-    private Status status;
+    private Long userId;
 
     private Timestamp createdAt;
 

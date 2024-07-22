@@ -25,11 +25,9 @@ public class UserAuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody @Valid UserAuthRequest userAuthRequest){
-        UserEntity entityToGenerateToken = new UserEntity();
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userAuthRequest.email(), userAuthRequest.password());
         var auth = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        entityToGenerateToken.setEmail(String.valueOf(auth.getPrincipal()));
-        var token = tokenGenerator.generateToken(entityToGenerateToken);
+        var token = this.tokenGenerator.generateToken((UserEntity) auth.getPrincipal());
         UserAuthResponse userAuthResponse = this.userService.getUserLongByEmail(userAuthRequest.email());
         return ResponseEntity.ok(new UserAuthResponse(userAuthResponse.id(), token));
     }
