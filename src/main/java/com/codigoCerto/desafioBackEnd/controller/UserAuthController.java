@@ -5,6 +5,8 @@ import com.codigoCerto.desafioBackEnd.dto.response.UserAuthResponse;
 import com.codigoCerto.desafioBackEnd.entity.UserEntity;
 import com.codigoCerto.desafioBackEnd.infra.security.TokenGenerator;
 import com.codigoCerto.desafioBackEnd.service.impl.UserAuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class UserAuthController {
     @Autowired
     private UserAuthService userService;
 
+    @Operation(summary = "User Login")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "404", description = "Not found")
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody @Valid UserAuthRequest userAuthRequest){
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userAuthRequest.email(), userAuthRequest.password());

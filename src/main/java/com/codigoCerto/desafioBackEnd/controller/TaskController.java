@@ -23,23 +23,27 @@ public class TaskController {
     private final TaskServiceImpl taskService;
 
     @Operation(summary = "Get all tasks")
-    @ApiResponse(responseCode = "200", description = "Tarefa recebida com sucesso")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "404", description = "Not Found")
+    @ApiResponse(responseCode = "401", description = "Unauthourized")
     @GetMapping
     public ResponseEntity<?> getAllTasks(){
         return ResponseEntity.ok().body(this.taskService.getAllTasks());
     }
 
     @Operation(summary = "Get task by id")
-    @ApiResponse(responseCode = "200", description = "Tarefa retornada com sucesso")
-    @ApiResponse(responseCode = "404", description = "Id not found")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "404", description = "Not Found")
+    @ApiResponse(responseCode = "401", description = "Unauthourized")
     @GetMapping("{id}")
     public ResponseEntity<?> getTaskById(@PathVariable Long id){
         return ResponseEntity.ok().body(this.taskService.getTaskById(id));
     }
 
     @Operation(summary = "Create Task")
-    @ApiResponse(responseCode = "201", description = "Task criada com sucesso")
-    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "201", description = "Created")
+    @ApiResponse(responseCode = "404", description = "Not Found")
+    @ApiResponse(responseCode = "401", description = "Unauthourized")
     @PostMapping
     public ResponseEntity<?> createTask (@Valid @RequestBody TaskRequest requestTask){
         TaskResponse taskCreated = this.taskService.createTask(requestTask);
@@ -47,16 +51,18 @@ public class TaskController {
     }
 
     @Operation(summary = "Update Task")
-    @ApiResponse(responseCode = "200", description = "Task atualizada com sucesso")
-    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "404", description = "Not Found")
+    @ApiResponse(responseCode = "401", description = "Unauthourized")
     @PutMapping("{id}")
     public ResponseEntity<?> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
     }
 
     @Operation(summary = "Delete Task")
-    @ApiResponse(responseCode = "204", description = "Task deletada com sucesso")
-    @ApiResponse(responseCode = "404", description = "Id não encontrado")
+    @ApiResponse(responseCode = "204", description = "No Content")
+    @ApiResponse(responseCode = "404", description = "Not Found")
+    @ApiResponse(responseCode = "401", description = "Unauthourized")
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTaskById(@PathVariable Long id){
         this.taskService.deleteTaskById(id);
