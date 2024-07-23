@@ -52,7 +52,7 @@ public class HandleErrors {
     @ExceptionHandler(IsIdStoredAtDataBase.class)
     public ProblemDetail handleIdWhoDoesntExists (IsIdStoredAtDataBase error, HttpServletRequest request){
         ProblemDetail problemDetail = ProblemDetail
-                .forStatusAndDetail(HttpStatus.BAD_REQUEST, error.getMessage());
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, error.getMessage());
         problemDetail.setTitle("Id não existe no sistema");
         problemDetail.setProperty("timeStamp", LocalDateTime.now());
         problemDetail.setType(URI.create("errors/id-is-not-registered"));

@@ -31,6 +31,9 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/signUp").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/*/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/*").permitAll()
                         .anyRequest().authenticated() // Qualquer outra rota será liberada quando estiver logado
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
