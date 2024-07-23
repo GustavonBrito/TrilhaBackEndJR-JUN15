@@ -9,6 +9,7 @@
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ## Índice
 
+- Endereço do Swagger : http://localhost:8080/swagger-ui/index.html#/
 - [Rota API Usuários](#usuarios)
 - [Rota API Tarefas](#tarefas)
 - [Clonando o Projeto](#clonando-o-projeto)
