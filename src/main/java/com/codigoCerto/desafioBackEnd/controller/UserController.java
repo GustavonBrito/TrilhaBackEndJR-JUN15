@@ -27,7 +27,7 @@ public class UserController {
     @Operation(summary = "User Login")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @GetMapping
     public ResponseEntity<List<UserSignUpResponse>> getAllUsers(){
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers();
@@ -37,7 +37,7 @@ public class UserController {
     @Operation(summary = "Get User by id")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @GetMapping("{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         return ResponseEntity.ok().body(userServiceImpl.getUserById(id));
@@ -54,7 +54,7 @@ public class UserController {
     @Operation(summary = "Update ALL informations about user")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @PutMapping("{id}")
     public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody @Valid UserEditProfileRequest userEditProfileRequest){
         UserEditProfileResponse userEditProfileResponse = userServiceImpl.updateUserById(id, userEditProfileRequest);
@@ -64,7 +64,7 @@ public class UserController {
     @Operation(summary = "Delete user by id")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id){
         userServiceImpl.deleteUserById(id);

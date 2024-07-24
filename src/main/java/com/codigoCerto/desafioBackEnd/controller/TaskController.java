@@ -4,15 +4,16 @@ import com.codigoCerto.desafioBackEnd.dto.request.TaskRequest;
 import com.codigoCerto.desafioBackEnd.dto.response.TaskResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.TaskServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 @RestController
@@ -22,47 +23,122 @@ public class TaskController {
 
     private final TaskServiceImpl taskService;
 
-    @Operation(summary = "Get all tasks")
-    @ApiResponse(responseCode = "200", description = "Success")
+    @Operation(summary = "Get all tasks" ,responses = {
+            @ApiResponse(responseCode = "200", content = @Content(examples = {
+                    @ExampleObject(name = "Get all tasks registered in database",
+                            description = "Get all tasks registered in database",
+                            value = """
+                                    [
+                                       {
+                                        "id": 1,
+                                        "name": "Criação de API Rest",
+                                        "description": "Criar uma API REST conectando ao banco SQLITE",
+                                        "status": "EM_ANDAMENTO",
+                                        "createdAt": "2024-07-24T16:21:55.028+00:00",
+                                        "updatedAt": "2024-07-24T16:21:55.028+00:00"
+                                       },
+                                       {
+                                        "id": 1,
+                                        "name": "Criação de API Rest",
+                                        "description": "Criar uma API REST conectando ao banco SQLITE",
+                                        "status": "CONCLUIDA",
+                                        "createdAt": "2024-07-24T16:21:55.028+00:00",
+                                        "updatedAt": "2024-07-24T16:21:55.028+00:00"
+                                       }
+                                    ]"""
+                    )
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @GetMapping
     public ResponseEntity<?> getAllTasks(){
         return ResponseEntity.ok().body(this.taskService.getAllTasks());
     }
 
-    @Operation(summary = "Get task by id")
-    @ApiResponse(responseCode = "200", description = "Success")
+    @Operation(summary = "Get task by id" ,responses = {
+            @ApiResponse(responseCode = "200", content = @Content(examples = {
+                    @ExampleObject(name = "Get task by id registered in database",
+                            description = "Get task by id registered in database",
+                            value = """
+                                   {
+                                    "id": 1,
+                                    "name": "Criação de API Rest",
+                                    "description": "Criar uma API REST conectando ao banco SQLITE",
+                                    "status": "EM_ANDAMENTO",
+                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
+                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
+                                   }
+                                   """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @GetMapping("{id}")
     public ResponseEntity<?> getTaskById(@PathVariable Long id){
         return ResponseEntity.ok().body(this.taskService.getTaskById(id));
     }
 
-    @Operation(summary = "Create Task")
-    @ApiResponse(responseCode = "201", description = "Created")
+    @Operation(summary = "Task creation in database" ,responses = {
+            @ApiResponse(responseCode = "201", content = @Content(examples = {
+                    @ExampleObject(name = "Create a task in database",
+                            description = "Create a task in database",
+                            value = """
+                                   {
+                                    "id": 1,
+                                    "name": "Criação de API Rest",
+                                    "description": "Criar uma API REST conectando ao banco SQLITE",
+                                    "status": "EM_ANDAMENTO",
+                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
+                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
+                                   }
+                                   """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @PostMapping
     public ResponseEntity<?> createTask (@Valid @RequestBody TaskRequest requestTask){
         TaskResponse taskCreated = this.taskService.createTask(requestTask);
         return ResponseEntity.created(URI.create("post/task")).body(taskCreated);
     }
 
-    @Operation(summary = "Update Task")
-    @ApiResponse(responseCode = "200", description = "Success")
+    @Operation(summary = "Update Task" ,responses = {
+            @ApiResponse(responseCode = "201", content = @Content(examples = {
+                    @ExampleObject(name = "Update a task in database",
+                            description = "Update a task in database",
+                            value = """
+                                   {
+                                    "id": 1,
+                                    "name": "Criação de API Rest",
+                                    "description": "Criar uma API REST conectando ao banco SQLITE",
+                                    "status": "CONCLUIDA",
+                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
+                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
+                                   }
+                                   """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @PutMapping("{id}")
     public ResponseEntity<?> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
     }
 
-    @Operation(summary = "Delete Task")
+    @Operation(summary = "Delete Task" ,responses = {
+            @ApiResponse(responseCode = "404", content = @Content(examples = {
+                    @ExampleObject(name = "Delete a task in database",
+                            description = "Delete a task in database",
+                            value = """
+                                    {
+                                        "type": "errors/id-is-not-registered",
+                                        "title": "Id não existe no sistema",
+                                        "status": 404,
+                                        "detail": "id 1 não está cadastrado no sistema",
+                                        "instance": "/tasks/1",
+                                        "timeStamp": "2024-07-24T13:36:38.5748794"
+                                    }
+                                   """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "204", description = "No Content")
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTaskById(@PathVariable Long id){
         this.taskService.deleteTaskById(id);

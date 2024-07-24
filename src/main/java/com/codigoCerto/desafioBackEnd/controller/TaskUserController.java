@@ -31,7 +31,7 @@ public class TaskUserController {
                                     "}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not found")
-    @ApiResponse(responseCode = "401", description = "Unauthourized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     @PostMapping
     public ResponseEntity<?> saveTaskUserRelation(@Valid @RequestBody TaskUserRequest taskUserRequest){
         return ResponseEntity.ok().body(this.taskUserService.saveTaskUser(taskUserRequest));

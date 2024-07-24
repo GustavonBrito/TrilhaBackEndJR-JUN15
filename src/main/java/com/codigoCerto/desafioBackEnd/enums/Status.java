@@ -1,5 +1,5 @@
 package com.codigoCerto.desafioBackEnd.enums;
 
 public enum Status {
-    ATIVO,EM_ANDAMENTO,CONCLUIDA
+    ADIADA,EM_ANDAMENTO,CONCLUIDA
 }
