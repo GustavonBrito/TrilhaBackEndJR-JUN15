@@ -3,6 +3,7 @@ package com.codigoCerto.desafioBackEnd.controller;
 import com.codigoCerto.desafioBackEnd.dto.request.TaskRequest;
 import com.codigoCerto.desafioBackEnd.dto.response.TaskResponse;
 import com.codigoCerto.desafioBackEnd.service.impl.TaskServiceImpl;
+import com.codigoCerto.desafioBackEnd.utils.ApiResponsesExample;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -27,25 +28,7 @@ public class TaskController {
             @ApiResponse(responseCode = "200", content = @Content(examples = {
                     @ExampleObject(name = "Get all tasks registered in database",
                             description = "Get all tasks registered in database",
-                            value = """
-                                    [
-                                       {
-                                        "id": 1,
-                                        "name": "Criação de API Rest",
-                                        "description": "Criar uma API REST conectando ao banco SQLITE",
-                                        "status": "EM_ANDAMENTO",
-                                        "createdAt": "2024-07-24T16:21:55.028+00:00",
-                                        "updatedAt": "2024-07-24T16:21:55.028+00:00"
-                                       },
-                                       {
-                                        "id": 1,
-                                        "name": "Criação de API Rest",
-                                        "description": "Criar uma API REST conectando ao banco SQLITE",
-                                        "status": "CONCLUIDA",
-                                        "createdAt": "2024-07-24T16:21:55.028+00:00",
-                                        "updatedAt": "2024-07-24T16:21:55.028+00:00"
-                                       }
-                                    ]"""
+                            value = ApiResponsesExample.TASK_LIST
                     )
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
@@ -59,16 +42,8 @@ public class TaskController {
             @ApiResponse(responseCode = "200", content = @Content(examples = {
                     @ExampleObject(name = "Get task by id registered in database",
                             description = "Get task by id registered in database",
-                            value = """
-                                   {
-                                    "id": 1,
-                                    "name": "Criação de API Rest",
-                                    "description": "Criar uma API REST conectando ao banco SQLITE",
-                                    "status": "EM_ANDAMENTO",
-                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
-                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
-                                   }
-                                   """)
+                            value = ApiResponsesExample.UNIQUE_TASK
+                    )
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "403", description = "Forbidden")
@@ -81,16 +56,8 @@ public class TaskController {
             @ApiResponse(responseCode = "201", content = @Content(examples = {
                     @ExampleObject(name = "Create a task in database",
                             description = "Create a task in database",
-                            value = """
-                                   {
-                                    "id": 1,
-                                    "name": "Criação de API Rest",
-                                    "description": "Criar uma API REST conectando ao banco SQLITE",
-                                    "status": "EM_ANDAMENTO",
-                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
-                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
-                                   }
-                                   """)
+                            value = ApiResponsesExample.UNIQUE_TASK
+                                   )
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "403", description = "Forbidden")
@@ -104,16 +71,7 @@ public class TaskController {
             @ApiResponse(responseCode = "201", content = @Content(examples = {
                     @ExampleObject(name = "Update a task in database",
                             description = "Update a task in database",
-                            value = """
-                                   {
-                                    "id": 1,
-                                    "name": "Criação de API Rest",
-                                    "description": "Criar uma API REST conectando ao banco SQLITE",
-                                    "status": "CONCLUIDA",
-                                    "createdAt": "2024-07-24T16:21:55.028+00:00",
-                                    "updatedAt": "2024-07-24T16:21:55.028+00:00"
-                                   }
-                                   """)
+                            value = ApiResponsesExample.UNIQUE_TASK)
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "403", description = "Forbidden")

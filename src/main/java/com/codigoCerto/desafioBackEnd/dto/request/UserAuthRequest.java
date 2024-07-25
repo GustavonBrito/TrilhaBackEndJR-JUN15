@@ -1,6 +1,6 @@
 package com.codigoCerto.desafioBackEnd.dto.request;
 
-import com.codigoCerto.desafioBackEnd.infra.utils.Regex;
+import com.codigoCerto.desafioBackEnd.utils.Regex;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

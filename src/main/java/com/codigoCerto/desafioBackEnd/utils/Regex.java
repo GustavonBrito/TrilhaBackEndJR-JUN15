@@ -1,4 +1,4 @@
-package com.codigoCerto.desafioBackEnd.infra.utils;
+package com.codigoCerto.desafioBackEnd.utils;
 
 public class Regex {
 
