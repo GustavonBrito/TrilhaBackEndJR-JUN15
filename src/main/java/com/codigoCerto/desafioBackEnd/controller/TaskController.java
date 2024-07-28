@@ -84,16 +84,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", content = @Content(examples = {
                     @ExampleObject(name = "Delete a task in database",
                             description = "Delete a task in database",
-                            value = """
-                                    {
-                                        "type": "errors/id-is-not-registered",
-                                        "title": "Id não existe no sistema",
-                                        "status": 404,
-                                        "detail": "id 1 não está cadastrado no sistema",
-                                        "instance": "/tasks/1",
-                                        "timeStamp": "2024-07-24T13:36:38.5748794"
-                                    }
-                                   """)
+                            value = ApiResponsesExample.UNIQUE_TASK)
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "204", description = "No Content")
     @ApiResponse(responseCode = "403", description = "Forbidden")

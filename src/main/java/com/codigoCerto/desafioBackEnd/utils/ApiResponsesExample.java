@@ -31,6 +31,15 @@ public class ApiResponsesExample {
             "updatedAt": "2024-07-24T16:21:55.028+00:00"
         }""";
 
+    public static final String UNIQUE_TASK_USER = """
+        {
+        "id": 1,
+        "taskId": 1,
+        "userId": 1,
+        "createdAt": "2024-07-24T16:21:55.028+00:00",
+        "updatedAt": "2024-07-24T16:21:55.028+00:00"
+        }""";
+
     public static final String USER_LIST = """
         [
            {

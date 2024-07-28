@@ -2,6 +2,7 @@ package com.codigoCerto.desafioBackEnd.controller;
 
 import com.codigoCerto.desafioBackEnd.dto.request.TaskUserRequest;
 import com.codigoCerto.desafioBackEnd.service.impl.TaskUserService;
+import com.codigoCerto.desafioBackEnd.utils.ApiResponsesExample;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -24,11 +25,7 @@ public class TaskUserController {
             @ApiResponse(responseCode = "200", content = @Content(examples = {
                     @ExampleObject(name = "Save task user relation",
                             description = "Save task user relation",
-                            value = "{\n" +
-                                    "    \"id\": 1,\n" +
-                                    "    \"taskId\": 1,\n" +
-                                    "    \"userId\": 1\n" +
-                                    "}")
+                            value = ApiResponsesExample.UNIQUE_TASK_USER)
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not found")
     @ApiResponse(responseCode = "403", description = "Forbidden")

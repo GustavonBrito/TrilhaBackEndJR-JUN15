@@ -1,5 +1,6 @@
 package com.codigoCerto.desafioBackEnd.infra.security;
 
+import com.codigoCerto.desafioBackEnd.exception.UserUnauthorized;
 import com.codigoCerto.desafioBackEnd.repository.impl.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,19 +23,19 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     UserRepository UserRepository;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException,IOException {
         var token = this.recoverToken(request);
-        if(token != null){
+        if(token != null) {
             var email = tokenGenerator.validateToken(token);
-            if (email.isEmpty()){
+            if (email.isEmpty()) {
                 filterChain.doFilter(request, response);
             }
             UserDetails user = UserRepository.findByEmailToGetCredentials(email);
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(request, response);
+        throw new UserUnauthorized("Usuario não encontrado");
     }
 
     private String recoverToken(HttpServletRequest request){
