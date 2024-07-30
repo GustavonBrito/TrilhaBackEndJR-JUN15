@@ -8,7 +8,6 @@ import com.codigocerto.desafiobackend.exception.IsIdStoredAtDataBase;
 import com.codigocerto.desafiobackend.repository.impl.TaskRepository;
 import com.codigocerto.desafiobackend.service.ITaskService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class TaskServiceImpl implements ITaskService {
-    @Autowired
-    TaskRepository taskRepository;
+
+    private final TaskRepository taskRepository;
 
     @Override
     public TaskResponse createTask(TaskRequest tasksRequest) {

@@ -12,10 +12,14 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Logger;
+
 @Repository
 public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
 
     SqLiteConnection db = new SqLiteConnection();
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
     public UserEntity save (UserEntity userEntity){
@@ -69,7 +73,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userToReturn.setUpdatedAt(userFinded.getTimestamp("updatedAt"));
                 }
             }else {
-                System.out.println("Connection Failed");
+                logger.info("Connection Failed");
             }
         }
         catch (SQLException e) {
@@ -103,7 +107,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userList.add(userEntity);
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -134,7 +138,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -161,7 +165,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userEntity.setPassword(resultSet.getString("password"));
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -188,7 +192,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userEntity.setEmail(resultSet.getString("email"));
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -231,7 +235,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                     userUpdatedToReturn.setCreatedAt(resultSet.getTimestamp("createdAt"));
                 }
             }else{
-                System.out.println("Connection failed");
+                logger.info("Connection failed");
             }
         }
         catch(SQLException e){
@@ -254,7 +258,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                 preparedStatement.setLong(1,id);
                 preparedStatement.executeUpdate();
             }else {
-                System.out.println("Connection Failed");
+                logger.info("Connection Failed");
             }
         }
         catch (SQLException e) {

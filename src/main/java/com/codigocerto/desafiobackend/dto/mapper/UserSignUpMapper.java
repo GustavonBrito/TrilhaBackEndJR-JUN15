@@ -14,7 +14,7 @@ public class UserSignUpMapper {
               .password(userSignUpRequest.password())
               .confirmedPassword(userSignUpRequest.confirmedPassword())
               .build();
-    };
+    }
 
     public static UserSignUpResponse transformEntityToResponse(UserEntity userEntity){
         return UserSignUpResponse.builder()

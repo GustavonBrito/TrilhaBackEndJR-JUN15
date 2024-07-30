@@ -8,8 +8,13 @@ import java.sql.*;
 import java.time.Instant;
 import java.time.ZoneOffset;
 
+import java.util.logging.Logger;
+
 @Repository
 public class TaskUserRepository {
+
+    Logger logger = Logger.getLogger(getClass().getName());
+
     SqLiteConnection db = new SqLiteConnection();
 
     public TaskUserEntity save(TaskUserEntity taskUserEntity) {
@@ -61,7 +66,7 @@ public class TaskUserRepository {
                     taskUserEntityToReturnToService.setUpdatedAt(taskUserFound.getTimestamp("updatedAt"));
                 }
             }else {
-                System.out.println("Connection Failed");
+                logger.info("Connection Failed");
             }
         }
         catch (SQLException e) {

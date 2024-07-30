@@ -19,6 +19,8 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
 
     SqLiteConnection db = new SqLiteConnection();
 
+    Logger logger = Logger.getLogger(getClass().getName());
+
     @Override
     public TaskEntity save(TaskEntity taskEntity) {
         Connection connection;
@@ -71,7 +73,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                     taskEntityToReturnToService.setUpdatedAt(taskFinded.getTimestamp("updatedAt"));
                 }
             }else {
-                System.out.println("Connection Failed");
+                logger.info("Connection Failed");
             }
         }
         catch (SQLException e) {
@@ -106,7 +108,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                     taskList.add(taskEntity);
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -138,7 +140,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                     taskEntity.setUpdatedAt(resultSet.getTimestamp("updatedAt"));
                 }
             }else{
-                System.out.println("Connection Failed!");
+                logger.info("Connection Failed!");
             }
         }
         catch (SQLException e){
@@ -183,12 +185,14 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                     taskUpdatedToReturn.setCreatedAt(resultSet.getTimestamp("createdAt"));
                 }
             }else{
-                System.out.println("Connection failed");
+                logger.info("Connection failed");
             }
         }
+
         catch(SQLException e){
             e.printStackTrace();
         }
+
         return taskUpdatedToReturn;
     }
 
@@ -206,7 +210,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                 preparedStatement.setLong(1,id);
                 preparedStatement.executeUpdate();
             }else {
-                System.out.println("Connection Failed");
+                logger.info("Connection Failed");
             }
         }
         catch (SQLException e) {

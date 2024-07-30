@@ -13,7 +13,6 @@ import com.codigocerto.desafiobackend.exception.IsPasswordEquals;
 import com.codigocerto.desafiobackend.repository.impl.UserRepository;
 import com.codigocerto.desafiobackend.service.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,8 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     @Override
     public UserSignUpResponse createUser(UserSignUpRequest userSignUpRequest) {
