@@ -3,15 +3,25 @@ package com.codigocerto.desafiobackend.dto.mapper;
 import com.codigocerto.desafiobackend.dto.request.TaskRequest;
 import com.codigocerto.desafiobackend.dto.response.TaskResponse;
 import com.codigocerto.desafiobackend.entity.TaskEntity;
+import com.codigocerto.desafiobackend.enums.converter.StatusConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TaskMapper {
-     public static TaskEntity transformRequestToEntity (TaskRequest taskRequest){
+
+    private static StatusConverter statusConverter;
+
+    @Autowired
+    public void setStatusConverter(StatusConverter statusConverter) {
+        TaskMapper.statusConverter = statusConverter;
+    }
+
+    public static TaskEntity transformRequestToEntity (TaskRequest taskRequest){
         return TaskEntity.builder()
                 .name(taskRequest.name())
                 .description(taskRequest.description())
-                .status(taskRequest.status())
+                .status(statusConverter.convertToEntityAttribute(taskRequest.status()))
                 .build();
     }
 

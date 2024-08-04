@@ -68,14 +68,4 @@ public class HandleErrors {
         problemDetail.setType(URI.create("errors/different-passwords"));
         return problemDetail;
     }
-
-    @ExceptionHandler(UserUnauthorized.class)
-    public ProblemDetail handleUserUnauthorized (UserUnauthorized error, HttpServletRequest request){
-        ProblemDetail problemDetail = ProblemDetail
-                .forStatusAndDetail(HttpStatus.UNAUTHORIZED, error.getMessage());
-        problemDetail.setTitle("Usuario não autorizado");
-        problemDetail.setProperty("timeStamp", LocalDateTime.now());
-        problemDetail.setType(URI.create("errors/user-unauthorized"));
-        return problemDetail;
-    }
 }

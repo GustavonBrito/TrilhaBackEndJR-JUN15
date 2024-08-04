@@ -30,21 +30,22 @@ public class SecurityFilter extends OncePerRequestFilter implements Authenticati
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED   , "Unauthorized");
     }
 
+
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException,IOException {
-        var token = this.recoverToken(request);
-        if(token != null) {
-            var email = tokenGenerator.validateToken(token);
-            if (email.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            var token = this.recoverToken(request);
+            if (token != null) {
+                var email = tokenGenerator.validateToken(token);
+                if (email.isEmpty()) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                }
+                UserDetails user = userRepository.findByEmailToGetCredentials(email);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-            UserDetails user = userRepository.findByEmailToGetCredentials(email);
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request){
