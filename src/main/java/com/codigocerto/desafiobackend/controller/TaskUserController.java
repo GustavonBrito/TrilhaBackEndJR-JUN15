@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,14 +23,25 @@ public class TaskUserController {
 
     private final TaskUserService taskUserService;
 
-    @Operation(summary = "Make relation of task and user" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Save task user relation",
-                            description = "Save task user relation",
-                            value = ApiResponsesExample.UNIQUE_TASK_USER)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Make relation of task and user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ok",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Save task user relation",
+                                    description = "Save task user relation",
+                                    value = " "
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PostMapping
     public ResponseEntity<TaskUserResponse> saveTaskUserRelation(@Valid @RequestBody TaskUserRequest taskUserRequest){
         return ResponseEntity.ok().body(this.taskUserService.saveTaskUser(taskUserRequest));

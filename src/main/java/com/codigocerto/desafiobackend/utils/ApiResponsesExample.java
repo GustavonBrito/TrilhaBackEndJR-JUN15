@@ -70,4 +70,11 @@ public class ApiResponsesExample {
         "updatedAt": "2024-07-25T01:55:58.691+00:00"
         }
         """;
+
+        public static final String LOGIN_USER = """
+        {
+        "id": 1,
+        "token": "bearer token"
+        }
+        """;
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -25,71 +26,184 @@ public class TaskController {
 
     private final TaskServiceImpl taskService;
 
-    @Operation(summary = "Get all tasks" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Get all tasks registered in database",
-                            description = "Get all tasks registered in database",
-                            value = ApiResponsesExample.TASK_LIST
+    @Operation(summary = "Get all tasks")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Get all tasks registered in the database",
+                                    description = "Get all tasks registered in the database",
+                                    value = ApiResponsesExample.TASK_LIST
+                            )
                     )
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @GetMapping("/getAllTasks/{page}")
     public ResponseEntity<List<TaskResponse>> getAllTasks(@PathVariable Integer page){
         List<TaskResponse> allTasks = this.taskService.getAllTasks(page);
         return ResponseEntity.ok().body(allTasks);
     }
 
-    @Operation(summary = "Get task by id" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Get task by id registered in database",
-                            description = "Get task by id registered in database",
-                            value = ApiResponsesExample.UNIQUE_TASK
+    @Operation(summary = "Get task by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Get task by id registered in database",
+                                    description = "Get task by id registered in database",
+                                    value = ApiResponsesExample.UNIQUE_TASK
+                            )
                     )
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @GetMapping("{id}")
     public ResponseEntity<TaskResponse> getTaskById(@PathVariable Long id){
         return ResponseEntity.ok().body(this.taskService.getTaskById(id));
     }
 
-    @Operation(summary = "Task creation in database" ,responses = {
-            @ApiResponse(responseCode = "201", content = @Content(examples = {
-                    @ExampleObject(name = "Create a task in database",
-                            description = "Create a task in database",
-                            value = ApiResponsesExample.UNIQUE_TASK
-                                   )
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Task creation in database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Create a task in database",
+                                    description = "Create a task in database",
+                                    value = ApiResponsesExample.UNIQUE_TASK
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PostMapping
     public ResponseEntity<TaskResponse> createTask (@Valid @RequestBody TaskRequest requestTask){
         TaskResponse taskCreated = this.taskService.createTask(requestTask);
         return ResponseEntity.created(URI.create("post/task")).body(taskCreated);
     }
 
-    @Operation(summary = "Update Task" ,responses = {
-            @ApiResponse(responseCode = "201", content = @Content(examples = {
-                    @ExampleObject(name = "Update a task in database",
-                            description = "Update a task in database",
-                            value = ApiResponsesExample.UNIQUE_TASK)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Update Task")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Update a task in database",
+                                    description = "Update a task in database",
+                                    value = ApiResponsesExample.UNIQUE_TASK
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PutMapping("{id}")
     public ResponseEntity<TaskResponse> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
     }
 
-    @Operation(summary = "Delete Task" ,responses = {
-            @ApiResponse(responseCode = "404", content = @Content(examples = {
-                    @ExampleObject(name = "Delete a task in database",
-                            description = "Delete a task in database",
-                            value = ApiResponsesExample.UNIQUE_TASK)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "200", description = "No Content")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Delete Task")
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Delete a task in database",
+                                    description = "Delete a task in database",
+                                    value = " "
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseEntity.BodyBuilder> deleteTaskById(@PathVariable Long id){
         this.taskService.deleteTaskById(id);

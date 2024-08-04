@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -27,53 +28,146 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-    @Operation(summary = "Get all Users" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Update a user in database",
-                            description = "Update a user in database",
-                            value = ApiResponsesExample.USER_LIST)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Get all Users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Update a user in database",
+                                    description = "Update a user in database",
+                                    value = ApiResponsesExample.USER_LIST
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @GetMapping("/getAllUsers/{page}")
     public ResponseEntity<List<UserSignUpResponse>> getAllUsers(@PathVariable Integer page){
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers(page);
         return ResponseEntity.ok().body(allUsers);
     }
 
-    @Operation(summary = "Get User by id" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Get user by id in database",
-                            description = "Get user by id in database",
-                            value = ApiResponsesExample.UNIQUE_USER)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Get User by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Get user by id in database",
+                                    description = "Get user by id in database",
+                                    value = ApiResponsesExample.UNIQUE_USER
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @GetMapping("{id}")
     public ResponseEntity<UserSignUpResponse> getUserById(@PathVariable Long id){
         return ResponseEntity.ok().body(userServiceImpl.getUserById(id));
     }
 
-    @Operation(summary = "Register User" ,responses = {
-            @ApiResponse(responseCode = "201", content = @Content(examples = {
-                    @ExampleObject(name = "Create a user",
-                            description = "Create a user",
-                            value = ApiResponsesExample.UNIQUE_USER)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
+    @Operation(summary = "Register User")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Create a user",
+                                    description = "Create a user",
+                                    value = ApiResponsesExample.UNIQUE_USER
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PostMapping("/signUp")
     public ResponseEntity<UserSignUpResponse> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
         return ResponseEntity.created(URI.create("/user")).body(userServiceImpl.createUser(userSignUpRequest));
     }
 
-    @Operation(summary = "Update all informations about user" ,responses = {
-            @ApiResponse(responseCode = "200", content = @Content(examples = {
-                    @ExampleObject(name = "Update a user",
-                            description = "Update a user",
-                            value = ApiResponsesExample.UNIQUE_USER)
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @Operation(summary = "Update all informations about user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Update a user",
+                                    description = "Update a user",
+                                    value = ApiResponsesExample.UNIQUE_USER
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PutMapping("{id}")
     public ResponseEntity<UserEditProfileResponse> updateUserById(@PathVariable Long id, @RequestBody @Valid UserEditProfileRequest userEditProfileRequest){
         UserEditProfileResponse userEditProfileResponse = userServiceImpl.updateUserById(id, userEditProfileRequest);
@@ -81,9 +175,36 @@ public class UserController {
     }
 
     @Operation(summary = "Delete user by id")
-    @ApiResponse(responseCode = "200", description = "Success")
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Delete user by id",
+                                    description = "Delete user by id",
+                                    value = " "
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Not Found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = "[]")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseEntity.BodyBuilder> deleteUserById(@PathVariable Long id){
         userServiceImpl.deleteUserById(id);

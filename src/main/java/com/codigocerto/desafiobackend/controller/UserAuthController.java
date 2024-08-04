@@ -5,8 +5,12 @@ import com.codigocerto.desafiobackend.dto.response.UserAuthResponse;
 import com.codigocerto.desafiobackend.entity.UserEntity;
 import com.codigocerto.desafiobackend.infra.security.TokenGenerator;
 import com.codigocerto.desafiobackend.service.impl.UserAuthService;
+import com.codigocerto.desafiobackend.utils.ApiResponsesExample;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,8 +35,24 @@ public class UserAuthController {
     }
 
     @Operation(summary = "User Login")
-    @ApiResponse(responseCode = "200", description = "Success")
-    @ApiResponse(responseCode = "404", description = "Not found")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ok",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Login a user",
+                                    description = "Login a user",
+                                    value = ApiResponsesExample.LOGIN_USER
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(value = " ")
+                    )
+            )
+    })
     @PostMapping("/login")
     public ResponseEntity<UserAuthResponse> userLogin(@RequestBody @Valid UserAuthRequest userAuthRequest){
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userAuthRequest.email(), userAuthRequest.password());
