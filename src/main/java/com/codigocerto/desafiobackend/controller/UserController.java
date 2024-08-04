@@ -35,9 +35,9 @@ public class UserController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
-    @GetMapping
-    public ResponseEntity<List<UserSignUpResponse>> getAllUsers(){
-        List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers();
+    @GetMapping("/getAllUsers/{page}")
+    public ResponseEntity<List<UserSignUpResponse>> getAllUsers(@PathVariable Integer page){
+        List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers(page);
         return ResponseEntity.ok().body(allUsers);
     }
 

@@ -20,14 +20,15 @@ public class TaskServiceImpl implements ITaskService {
 
     @Override
     public TaskResponse createTask(TaskRequest tasksRequest) {
+
         TaskEntity taskEntity = TaskMapper.transformRequestToEntity(tasksRequest);
         TaskEntity savedEntity = taskRepository.save(taskEntity);
         return TaskMapper.transformEntityToResponse(savedEntity);
     }
 
     @Override
-    public List<TaskResponse> getAllTasks() {
-        List<TaskEntity> allTasksFoundByRepo = this.taskRepository.findAll();
+    public List<TaskResponse> getAllTasks(Integer page) {
+        List<TaskEntity> allTasksFoundByRepo = this.taskRepository.findAll(page);
         return allTasksFoundByRepo.stream().map(TaskMapper::transformEntityToResponse).toList();
     }
 

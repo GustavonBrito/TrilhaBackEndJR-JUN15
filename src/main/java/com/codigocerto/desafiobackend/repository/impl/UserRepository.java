@@ -83,7 +83,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
     }
 
     @Override
-    public List<UserEntity> findAll() {
+    public List<UserEntity> findAll(Integer page) {
         Connection connection;
         PreparedStatement preparedStatement;
         UserEntity userEntity;
@@ -91,9 +91,10 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
         try {
             connection = db.getConnection();
             if (connection != null){
-                String allUsersFinded = "SELECT * FROM user_entity";
+                String allUsersFinded = "SELECT * FROM user_entity LIMIT 5 OFFSET ?";
 
                 preparedStatement = connection.prepareStatement(allUsersFinded);
+                preparedStatement.setInt(1, page * 5);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 

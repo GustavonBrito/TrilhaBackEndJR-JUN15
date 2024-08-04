@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ITaskService {
     TaskResponse createTask(TaskRequest tasksRequest);
-    List<TaskResponse> getAllTasks();
+    List<TaskResponse> getAllTasks(Integer page);
     TaskResponse getTaskById(Long id);
     TaskResponse updateTaskById(Long id, TaskRequest taskRequest);
     void deleteTaskById(Long id);

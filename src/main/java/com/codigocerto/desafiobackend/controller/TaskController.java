@@ -34,9 +34,9 @@ public class TaskController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
-    @GetMapping
-    public ResponseEntity<List<TaskResponse>> getAllTasks(){
-        List<TaskResponse> allTasks = this.taskService.getAllTasks();
+    @GetMapping("/getAllTasks/{page}")
+    public ResponseEntity<List<TaskResponse>> getAllTasks(@PathVariable Integer page){
+        List<TaskResponse> allTasks = this.taskService.getAllTasks(page);
         return ResponseEntity.ok().body(allTasks);
     }
 

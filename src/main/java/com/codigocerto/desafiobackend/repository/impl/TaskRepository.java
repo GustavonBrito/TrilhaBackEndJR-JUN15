@@ -83,7 +83,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
     }
 
     @Override
-    public List<TaskEntity> findAll() {
+    public List<TaskEntity> findAll(Integer page) {
         Connection connection;
         PreparedStatement preparedStatement;
         TaskEntity taskEntity;
@@ -91,9 +91,10 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
         try {
             connection = db.getConnection();
             if (connection != null){
-                String allTasksFinded = "SELECT * FROM task_entity";
+                String allTasksFinded = "SELECT * FROM task_entity LIMIT 5 OFFSET ?";
 
                 preparedStatement = connection.prepareStatement(allTasksFinded);
+                preparedStatement.setInt(1, page * 5);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
