@@ -68,4 +68,14 @@ public class HandleErrors {
         problemDetail.setType(URI.create("errors/different-passwords"));
         return problemDetail;
     }
+
+    @ExceptionHandler(UserUnauthorized.class)
+    public ProblemDetail handleDifferentPasswords (UserUnauthorized error, HttpServletRequest request){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.UNAUTHORIZED, error.getMessage());
+        problemDetail.setTitle("Token Invalido");
+        problemDetail.setProperty("timeStamp", LocalDateTime.now());
+        problemDetail.setType(URI.create("errors/invalid-token"));
+        return problemDetail;
+    }
 }
