@@ -19,7 +19,7 @@ public class SqLiteConnection {
 
     public SqLiteConnection() {
 
-        String url = "jdbc:sqlite:src/main/java/com/codigocerto/desafiobackend/sqlite_data/sqlite_data.db";
+        String url = "jdbc:sqlite:sqlite_data.db";
         // Especificação da URL do SQLITE
 
         try {
