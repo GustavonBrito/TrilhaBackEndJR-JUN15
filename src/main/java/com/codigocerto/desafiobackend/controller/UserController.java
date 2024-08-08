@@ -134,7 +134,6 @@ public class UserController {
                     )
             )
     })
-    @Server(url = "https://trilhabackendjr-jun15-production-352a.up.railway.app/swagger-ui/index.html#/signUp/users")
     @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping("/signUp")
     public ResponseEntity<UserSignUpResponse> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){

@@ -20,7 +20,7 @@ public class CorsConfig {
     @Bean
     public GroupedOpenApi api() {
         return GroupedOpenApi.builder()
-                .group("my-api")
+                .group("codigo-certo-api")
                 .pathsToMatch("/**")
                 .build();
     }
