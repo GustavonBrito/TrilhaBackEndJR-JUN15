@@ -94,7 +94,7 @@ public class TaskRepository implements IMethodsToConnectToDB<TaskEntity> {
                 String allTasksFinded = "SELECT * FROM task_entity LIMIT 5 OFFSET ?";
 
                 preparedStatement = connection.prepareStatement(allTasksFinded);
-                preparedStatement.setInt(1, page * 5);
+                preparedStatement.setInt(1, (page - 1) * 5);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 

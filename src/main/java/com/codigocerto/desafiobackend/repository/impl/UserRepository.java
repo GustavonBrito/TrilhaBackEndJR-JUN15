@@ -94,7 +94,7 @@ public class UserRepository implements IMethodsToConnectToDB<UserEntity> {
                 String allUsersFinded = "SELECT * FROM user_entity LIMIT 5 OFFSET ?";
 
                 preparedStatement = connection.prepareStatement(allUsersFinded);
-                preparedStatement.setInt(1, page * 5);
+                preparedStatement.setInt(1, (page - 1) * 5);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
