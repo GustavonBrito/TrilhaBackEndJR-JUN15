@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -59,7 +58,7 @@ public class UserController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
+    @CrossOrigin(allowedHeaders = "*", origins = "http://trilhabackendjr-jun15-production-352a.up.railway.app/*/*")
     @GetMapping("/getAllUsers/{page}")
     public ResponseEntity<List<UserSignUpResponse>> getAllUsers(@PathVariable Integer page){
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers(page);

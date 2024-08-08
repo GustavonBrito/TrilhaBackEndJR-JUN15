@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(allowedHeaders = "*", origins = "*")
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("task_user")

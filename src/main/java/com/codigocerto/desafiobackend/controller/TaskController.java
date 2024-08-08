@@ -13,12 +13,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(allowedHeaders = "*", origins = "*")
+
+@EnableWebSecurity
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tasks")
