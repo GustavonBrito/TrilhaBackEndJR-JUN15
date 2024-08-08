@@ -5,16 +5,20 @@
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![YAML](https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515)
-![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ## Índice
 
-- Endereço do Swagger : http://localhost:8080/swagger-ui/index.html#/
+- [Endereço do Swagger](  https://trilhabackendjr-jun15-production-352a.up.railway.app/swagger-ui/index.html#/)
 - [Rota API Usuários](#usuarios)
 - [Rota API Tarefas](#tarefas)
 - [Clonando o Projeto](#clonando-o-projeto)
 - [Pré requisitos](#pré-requisitos)
 - [Licença](#licença)
+
+## Instruções breves
+
+Caso vá utilizar a url publica para fazer requisições utilize como base a seguinte no lugar da localhost:8080: https://trilhabackendjr-jun15-production-352a.up.railway.app
 
 ## Introdução
 
