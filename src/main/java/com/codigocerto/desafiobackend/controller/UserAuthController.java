@@ -53,6 +53,7 @@ public class UserAuthController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping("/login")
     public ResponseEntity<UserAuthResponse> userLogin(@RequestBody @Valid UserAuthRequest userAuthRequest){
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userAuthRequest.email(), userAuthRequest.password());

@@ -59,6 +59,7 @@ public class UserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("/getAllUsers/{page}")
     public ResponseEntity<List<UserSignUpResponse>> getAllUsers(@PathVariable Integer page){
         List<UserSignUpResponse> allUsers = userServiceImpl.getAllUsers(page);
@@ -96,6 +97,7 @@ public class UserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("{id}")
     public ResponseEntity<UserSignUpResponse> getUserById(@PathVariable Long id){
         return ResponseEntity.ok().body(userServiceImpl.getUserById(id));
@@ -132,6 +134,7 @@ public class UserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping("/signUp")
     public ResponseEntity<UserSignUpResponse> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
         return ResponseEntity.created(URI.create("/user")).body(userServiceImpl.createUser(userSignUpRequest));
@@ -168,6 +171,7 @@ public class UserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PutMapping("{id}")
     public ResponseEntity<UserEditProfileResponse> updateUserById(@PathVariable Long id, @RequestBody @Valid UserEditProfileRequest userEditProfileRequest){
         UserEditProfileResponse userEditProfileResponse = userServiceImpl.updateUserById(id, userEditProfileRequest);
@@ -205,6 +209,7 @@ public class UserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseEntity.BodyBuilder> deleteUserById(@PathVariable Long id){
         userServiceImpl.deleteUserById(id);

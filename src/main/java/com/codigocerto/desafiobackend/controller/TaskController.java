@@ -57,6 +57,7 @@ public class TaskController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("/getAllTasks/{page}")
     public ResponseEntity<List<TaskResponse>> getAllTasks(@PathVariable Integer page){
         List<TaskResponse> allTasks = this.taskService.getAllTasks(page);
@@ -94,6 +95,7 @@ public class TaskController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("{id}")
     public ResponseEntity<TaskResponse> getTaskById(@PathVariable Long id){
         return ResponseEntity.ok().body(this.taskService.getTaskById(id));
@@ -130,6 +132,7 @@ public class TaskController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<TaskResponse> createTask (@Valid @RequestBody TaskRequest requestTask){
         TaskResponse taskCreated = this.taskService.createTask(requestTask);
@@ -167,13 +170,13 @@ public class TaskController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PutMapping("{id}")
     public ResponseEntity<TaskResponse> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
     }
 
     @Operation(summary = "Delete Task")
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(
@@ -204,6 +207,7 @@ public class TaskController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseEntity.BodyBuilder> deleteTaskById(@PathVariable Long id){
         this.taskService.deleteTaskById(id);

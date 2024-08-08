@@ -42,6 +42,7 @@ public class TaskUserController {
                     )
             )
     })
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<TaskUserResponse> saveTaskUserRelation(@Valid @RequestBody TaskUserRequest taskUserRequest){
         return ResponseEntity.ok().body(this.taskUserService.saveTaskUser(taskUserRequest));
