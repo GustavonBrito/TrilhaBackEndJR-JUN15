@@ -9,8 +9,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,9 +22,9 @@ import java.net.URI;
 import java.util.List;
 
 
-@EnableWebSecurity
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/tasks")
 public class TaskController {
 
@@ -59,7 +61,6 @@ public class TaskController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("/getAllTasks/{page}")
     public ResponseEntity<List<TaskResponse>> getAllTasks(@PathVariable Integer page){
         List<TaskResponse> allTasks = this.taskService.getAllTasks(page);
@@ -97,7 +98,6 @@ public class TaskController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("{id}")
     public ResponseEntity<TaskResponse> getTaskById(@PathVariable Long id){
         return ResponseEntity.ok().body(this.taskService.getTaskById(id));
@@ -134,7 +134,6 @@ public class TaskController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<TaskResponse> createTask (@Valid @RequestBody TaskRequest requestTask){
         TaskResponse taskCreated = this.taskService.createTask(requestTask);
@@ -172,7 +171,6 @@ public class TaskController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PutMapping("{id}")
     public ResponseEntity<TaskResponse> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok().body(this.taskService.updateTaskById(id, taskRequest));
@@ -209,7 +207,6 @@ public class TaskController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseEntity.BodyBuilder> deleteTaskById(@PathVariable Long id){
         this.taskService.deleteTaskById(id);

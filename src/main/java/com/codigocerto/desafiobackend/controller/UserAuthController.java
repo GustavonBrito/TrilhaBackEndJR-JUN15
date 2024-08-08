@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/auth")
 public class UserAuthController {
 
@@ -52,7 +53,6 @@ public class UserAuthController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping("/login")
     public ResponseEntity<UserAuthResponse> userLogin(@RequestBody @Valid UserAuthRequest userAuthRequest){
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userAuthRequest.email(), userAuthRequest.password());

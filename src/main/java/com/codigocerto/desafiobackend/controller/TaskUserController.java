@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("task_user")
 public class TaskUserController {
 
@@ -42,7 +43,6 @@ public class TaskUserController {
                     )
             )
     })
-    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<TaskUserResponse> saveTaskUserRelation(@Valid @RequestBody TaskUserRequest taskUserRequest){
         return ResponseEntity.ok().body(this.taskUserService.saveTaskUser(taskUserRequest));
