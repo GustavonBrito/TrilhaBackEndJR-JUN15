@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -133,6 +134,7 @@ public class UserController {
                     )
             )
     })
+    @Server(url = "https://trilhabackendjr-jun15-production-352a.up.railway.app/swagger-ui/index.html#/signUp/users")
     @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping("/signUp")
     public ResponseEntity<UserSignUpResponse> createUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest){
