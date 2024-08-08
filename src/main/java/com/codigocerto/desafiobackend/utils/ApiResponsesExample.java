@@ -77,4 +77,17 @@ public class ApiResponsesExample {
         "token": "bearer token"
         }
         """;
+
+        public static final String BAD_REQUEST = """
+                {
+                    "type": "errors/string",
+                    "title": "string",
+                    "status": 400,
+                    "detail": "string",
+                    "instance": "string",
+                    "timeStamp": "2024-08-08T01:58:40.79825025"
+                }
+        """;
+
+
 }

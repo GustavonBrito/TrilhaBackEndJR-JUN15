@@ -47,7 +47,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(
                             mediaType = "application/json",
-                            examples = @ExampleObject(value = "[]")
+                            examples = @ExampleObject(value = ApiResponsesExample.BAD_REQUEST)
                     )
             ),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
@@ -84,7 +84,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(
                             mediaType = "application/json",
-                            examples = @ExampleObject(value = "[]")
+                            examples = @ExampleObject(value = ApiResponsesExample.BAD_REQUEST)
                     )
             ),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
@@ -120,7 +120,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(
                             mediaType = "application/json",
-                            examples = @ExampleObject(value = "[]")
+                            examples = @ExampleObject(value = ApiResponsesExample.BAD_REQUEST)
                     )
             ),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
@@ -157,7 +157,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(
                             mediaType = "application/json",
-                            examples = @ExampleObject(value = "[]")
+                            examples = @ExampleObject(value = ApiResponsesExample.BAD_REQUEST)
                     )
             ),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
@@ -194,7 +194,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(
                             mediaType = "application/json",
-                            examples = @ExampleObject(value = "[]")
+                            examples = @ExampleObject(value = ApiResponsesExample.BAD_REQUEST)
                     )
             ),
             @ApiResponse(responseCode = "401", description = "Unauthorized",
