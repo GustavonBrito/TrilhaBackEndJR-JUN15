@@ -5,11 +5,11 @@
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![YAML](https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515)
-![Heroku]([https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white](https://img.shields.io/badge/Heroku-deployed-430098?logo=heroku&logoColor=purple))
+![Heroku](https://img.shields.io/badge/Heroku-deployed-430098?logo=heroku&logoColor=purple)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ## Índice
 
-- [Endereço do Swagger](  [https://trilhabackendjr-jun15-production-352a.up.railway.app/swagger-ui/index.html#/](https://desafio-back-end-codigo-certo-d7dc79a17c9f.herokuapp.com/swagger-ui/index.html#/))
+- [Endereço do Swagger](  [https://desafio-back-end-codigo-certo-d7dc79a17c9f.herokuapp.com/swagger-ui/index.html#/])
 - [Rota API Usuários](#usuarios)
 - [Rota API Tarefas](#tarefas)
 - [Clonando o Projeto](#clonando-o-projeto)
