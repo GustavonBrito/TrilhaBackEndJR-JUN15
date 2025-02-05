@@ -18,7 +18,7 @@
 
 ## Instruções breves
 
-Caso vá utilizar a url publica para fazer requisições utilize como base a seguinte no lugar da localhost:8080: https://trilhabackendjr-jun15-production-352a.up.railway.app
+Caso vá utilizar a url publica para fazer requisições utilize como base a seguinte no lugar da localhost:8080: https://desafio-back-end-codigo-certo-d7dc79a17c9f.herokuapp.com
 
 ## Introdução
 
